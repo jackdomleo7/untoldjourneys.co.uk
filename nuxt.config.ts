@@ -6,11 +6,17 @@ export default defineNuxtConfig({
     strict: true
   },
   css: [
-    'modern-normalize/modern-normalize.css'
+    'modern-normalize/modern-normalize.css',
+    '@/assets/styles/main.scss'
   ],
   vite: {
     css: {
-      devSourcemap: true
+      devSourcemap: true,
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "@/assets/styles/scss/variables/responsive.scss" as *;'
+        }
+      }
     }
   }
 })
