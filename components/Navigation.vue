@@ -21,7 +21,7 @@
           </li>
         </ul>
       </div>
-      <!-- <div class="navbar__social">
+      <div class="navbar__social">
         <ul class="navbar__social-list">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
             <a
@@ -30,12 +30,12 @@
               target="_blank"
               :title="socialLink.text"
             >
-              <svg-icon :name="socialLink.icon" />
+              <nuxt-icon class="navbar__social-icon" :name="socialLink.icon" />
               <span class="sr-only">{{ socialLink.text }}</span>
             </a>
           </li>
         </ul>
-      </div> -->
+      </div>
       <button
         class="navbar__hamburger"
         :class="{ 'navbar__hamburger--open': isMobileNavOpen }"
@@ -64,7 +64,7 @@
             </a>
           </li>
         </ul>
-        <!-- <ul class="navbar__social-list">
+        <ul class="navbar__social-list">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
             <a
               ref="noopener noreferrer"
@@ -72,11 +72,11 @@
               target="_blank"
               :title="socialLink.text"
             >
-              <svg-icon :name="socialLink.icon" />
+              <nuxt-icon class="navbar__social-icon" :name="socialLink.icon" />
               <span class="sr-only">{{ socialLink.text }}</span>
             </a>
           </li>
-        </ul> -->
+        </ul>
       </div>
     </div>
   </nav>
@@ -88,6 +88,10 @@ const navLinks = [
   { text: 'Blog', url: '/blog' },
   { text: 'Gallery', url: '/gallery' },
   { text: 'Shop', url: 'https://jackdomleo.dev' }
+]
+const socialLinks = [
+  { icon: 'instagram', text: 'Instagram', url: 'https://www.instagram.com' },
+  { icon: 'etsy', text: 'Etsy', url: 'https://www.etsy.com' }
 ]
 </script>
 
@@ -291,11 +295,11 @@ const navLinks = [
           }
         }
       }
+    }
 
-      svg {
-        height: 2rem;
-        width: 2rem;
-      }
+    .navbar__social-icon {
+      height: 2rem;
+      width: 2rem;
     }
 
     @media (min-width: $responsive-small-desktop) {
@@ -374,11 +378,11 @@ const navLinks = [
             }
           }
         }
+      }
 
-        svg {
-          height: 1.5rem;
-          width: 1.5rem;
-        }
+      &-icon {
+        height: 1.5rem;
+        width: 1.5rem;
       }
     }
   }

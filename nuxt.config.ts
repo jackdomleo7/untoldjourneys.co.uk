@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     'modern-normalize/modern-normalize.css',
     '@/assets/styles/main.scss'
   ],
+  modules: ['nuxt-icons'],
   vite: {
     css: {
       devSourcemap: true,

@@ -26,6 +26,7 @@
     "npm": "9"
   },
   "dependencies": {
-    "modern-normalize": "^1.1.0"
+    "modern-normalize": "^1.1.0",
+    "nuxt-icons": "^3.0.0"
   }
 }
