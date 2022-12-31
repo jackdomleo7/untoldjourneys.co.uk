@@ -14,7 +14,7 @@ export default defineNuxtConfig({
       devSourcemap: true,
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@/assets/styles/scss/variables/responsive.scss" as *;'
+          additionalData: '@use "@/assets/styles/scss/variables/responsive.scss" as *;@use "sass:math";'
         }
       }
     }
