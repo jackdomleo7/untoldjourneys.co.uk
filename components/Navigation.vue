@@ -1,47 +1,49 @@
 <template>
-  <nav class="navbar" :class="{ 'navbar--open': isMobileNavOpen }">
-    <div class="navbar__inner container">
-      <div class="navbar__logo">
-        <nuxt-link to="/">
-          <img
-            src="/images/UntoldJourneys-logo.svg"
-            alt="Untold Journeys"
-            width="160"
-            height="35"
-          />
-          <span class="sr-only" translate="no">Untold Journeys</span>
-        </nuxt-link>
-      </div>
-      <div class="navbar__links">
-        <ul class="navbar__links-list">
+  <nav class="nav" :class="{ 'nav--sticky': !navIsAtTop || isMobileNavOpen }">
+    <div class="nav__inner">
+      <div v-if="!isMobile" class="nav__links">
+        <ul class="nav__links-list">
           <li v-for="navLink in navLinks" :key="navLink.url">
-            <a :href="navLink.url">
+            <nuxt-link :to="navLink.url">
               {{ navLink.text }}
-            </a>
+              <nuxt-icon class="nav__links-icon" v-if="navLink.url.startsWith('https://')" name="external" />
+            </nuxt-link>
           </li>
         </ul>
       </div>
-      <div class="navbar__social">
-        <ul class="navbar__social-list">
+      <div class="nav__logo">
+        <nuxt-link to="/">
+          <img
+            src="/images/UntoldJourneys-logo.png"
+            alt="Untold Journeys"
+            width="352"
+            height="134"
+          />
+          <span class="sr-only" translate="no">Untold Journeys - Time for adventure</span>
+        </nuxt-link>
+      </div>
+      <div v-if="!isMobile" class="nav__social">
+        <ul class="nav__social-list">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
-            <a
+            <nuxt-link
               ref="noopener noreferrer"
-              :href="socialLink.url"
+              :to="socialLink.url"
               target="_blank"
               :title="socialLink.text"
             >
-              <nuxt-icon class="navbar__social-icon" :name="socialLink.icon" />
+              <nuxt-icon class="nav__social-icon" :name="socialLink.icon" />
               <span class="sr-only">{{ socialLink.text }}</span>
-            </a>
+            </nuxt-link>
           </li>
         </ul>
       </div>
       <button
-        class="navbar__hamburger"
-        :class="{ 'navbar__hamburger--open': isMobileNavOpen }"
+        v-if="isMobile"
+        class="nav__hamburger"
+        :class="{ 'nav__hamburger--open': isMobileNavOpen }"
         @click="isMobileNavOpen = !isMobileNavOpen"
       >
-        <div class="navbar__hamburger-icon">
+        <div class="nav__hamburger-icon">
           <span></span>
           <span></span>
           <span></span>
@@ -49,32 +51,26 @@
         </div>
         <span class="sr-only">{{ isMobileNavOpen ? 'Close' : 'Menu' }}</span>
       </button>
-    </div>
-    <div
-      class="navbar__nav"
-      :class="{
-        'navbar__nav--open': isMobileNavOpen
-      }"
-    >
-      <div>
-        <ul class="navbar__links-list">
-          <li v-for="navLink in navLinks" :key="navLink.url">
-            <a :href="navLink.url">
+      <div v-if="isMobile" class="nav__more" :class="{'nav__more--open': isMobile && isMobileNavOpen}">
+        <ul class="nav__more-list">
+          <li v-for="navLink in navLinks" :key="navLink.text">
+            <nuxt-link :to="navLink.url!">
               {{ navLink.text }}
-            </a>
+              <nuxt-icon class="nav__more-list-icon" v-if="navLink.url.startsWith('https://')" name="external" />
+            </nuxt-link>
           </li>
         </ul>
-        <ul class="navbar__social-list">
+        <ul class="nav__more-social">
           <li v-for="socialLink in socialLinks" :key="socialLink.url">
-            <a
+            <nuxt-link
               ref="noopener noreferrer"
-              :href="socialLink.url"
+              :to="socialLink.url"
               target="_blank"
               :title="socialLink.text"
             >
-              <nuxt-icon class="navbar__social-icon" :name="socialLink.icon" />
+              <nuxt-icon class="nav__more-social-icon" :name="socialLink.icon" />
               <span class="sr-only">{{ socialLink.text }}</span>
-            </a>
+            </nuxt-link>
           </li>
         </ul>
       </div>
@@ -82,8 +78,14 @@
   </nav>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+const route = useRoute()
+
+const isMobile = ref(false)
+const isTouchscreen = ref(false)
 const isMobileNavOpen = ref(false)
+const navIsAtTop = ref(false)
+
 const navLinks = [
   { text: 'Blog', url: '/blog' },
   { text: 'Gallery', url: '/gallery' },
@@ -91,23 +93,75 @@ const navLinks = [
 ]
 const socialLinks = [
   { icon: 'instagram', text: 'Instagram', url: 'https://www.instagram.com' },
+  { icon: 'facebook', text: 'Facebook', url: 'https://www.facebook.com' },
   { icon: 'etsy', text: 'Etsy', url: 'https://www.etsy.com' }
 ]
+
+watch(route, () => {
+  isMobileNavOpen.value = false
+})
+
+onMounted(() => {
+  setResponsiveness()
+  handleScroll()
+  window.addEventListener('resize', setResponsiveness)
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', setResponsiveness)
+  window.removeEventListener('scroll', handleScroll)
+})
+
+function setResponsiveness (): void {
+  const navBreak = window.getComputedStyle(document.querySelector('nav.nav')!).getPropertyValue('--nav-break')
+  isMobile.value = !window.matchMedia(`(min-width: ${navBreak})`).matches
+  isTouchscreen.value = !window.matchMedia('(hover: hover)').matches
+
+  if (window.matchMedia(`(min-width: ${navBreak})`).matches) {
+    isMobileNavOpen.value = false
+  }
+}
+
+function handleScroll (): void {
+  navIsAtTop.value = !(document.body.scrollTop > 10 || document.documentElement.scrollTop > 10)
+}
 </script>
 
 <style lang="scss" scoped>
-.navbar {
+$nav-break: $responsive-large-tablet;
+
+.nav {
+  --nav-break: #{$nav-break};
   position: fixed;
   z-index: 2;
   top: 0;
   width: 100vw;
-  height: 3.5rem;
-  color: var(--color-secondary-text);
+  height: 6rem;
+  color: var(--color-primary-text);
   background-color: #fff;
+  font-size: var(--text-large);
 
-  @media (min-width: $responsive-small-desktop) {
-    position: sticky;
-    top: 0;
+  @media (min-width: $nav-break) {
+    height: 9rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition-property: box-shadow, height;
+    transition: 280ms ease;
+    will-change: box-shadow, height;
+  }
+
+  &--sticky {
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+
+    @media (min-width: $nav-break) {
+      height: 6rem;
+
+      .nav__logo {
+        width: 13rem;
+      }
+    }
   }
 
   &__inner {
@@ -116,22 +170,116 @@ const socialLinks = [
     justify-content: space-between;
     height: 100%;
     position: relative;
-    padding-inline: 2rem;
+    padding-inline: 1rem;
     background-color: #fff;
     position: relative;
     z-index: 1;
+    max-width: 90rem;
+    margin-inline: auto;
+
+    @media (min-width: $nav-break) {
+      padding-inline: 2rem;
+    }
   }
 
   &__logo {
     margin: 0;
-    width: 8.625rem;
+    width: 14rem;
 
-    @media (min-width: $responsive-small-desktop) {
-      width: 12.875rem;
+    @media (min-width: $nav-break) {
+      width: 22rem;
+    
+      @media (prefers-reduced-motion: no-preference) {
+        transition: width 280ms ease;
+        will-change: width;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    height: 100%;
+
+    &-list {
+      display: flex;
+      gap: 2rem;
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+      height: 100%;
+
+      li {
+        display: grid;
+        place-items: center;
+      }
+
+      a {
+        font-family: sans-serif;
+        font-weight: 700;
+        color: var(--color-primary-text);
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        text-decoration: none;
+        padding: 0.25rem;
+        border-bottom: 2px solid transparent;
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition: border 280ms ease;
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            border-bottom-color: var(--color-accent);
+          }
+        }
+      }
     }
 
-    img {
+    &-icon {
+      width: 0.75rem;
+    }
+  }
+
+  &__social {
+    grid-area: social;
+    display: flex;
+    height: 100%;
+
+    &-list {
+      display: flex;
+      gap: 0.75rem;
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
       height: 100%;
+
+      li {
+        display: grid;
+        place-items: center;
+      }
+
+      a {
+        color: var(--color-primary-text);
+        display: flex;
+        align-items: center;
+        padding: 0.25rem;
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition: color 280ms ease;
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            color: var(--color-primary-text);
+          }
+        }
+      }
+    }
+
+    &-icon {
+      height: 1.5rem;
+      width: 1.5rem;
     }
   }
 
@@ -145,10 +293,6 @@ const socialLinks = [
     border: none;
     margin: 1rem 0;
     background-color: transparent;
-
-    @media (min-width: $responsive-small-desktop) {
-      display: none;
-    }
 
     &-icon {
       width: 1.3rem;
@@ -183,7 +327,7 @@ const socialLinks = [
           top: 90%;
         }
 
-        .navbar__hamburger--open & {
+        .nav__hamburger--open & {
           &:nth-child(1),
           &:nth-child(4) {
             top: 45%;
@@ -203,187 +347,64 @@ const socialLinks = [
     }
   }
 
-  &__nav {
+  &__more {
     position: absolute;
-    top: -30rem;
-    left: 0;
-    width: 200vw;
-    background-color: #fff;
-    transition: all 480ms ease;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 0;
+    background-color: var(--color-background);
+    border-top: 0 solid var(--color-accent);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+    padding: 0 3rem;
+    min-width: 18rem;
+    transition-property: height, padding, border;
+    transition: 260ms ease;
+    will-change: height, padding, border;
+    overflow: hidden;
+    visibility: hidden;
 
     &--open {
-      top: 100%;
+      height: max-content;
+      padding-block: 1rem;
+      border-top-width: 4px;
+      visibility: visible;
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
 
-    > div {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .navbar__links-list {
-      display: flex;
-      flex-direction: column;
-      list-style-type: none;
+    &-list {
       margin: 0;
-      padding-inline: 1rem;
-
-      li {
-        border-bottom: 2px solid var(--color-secondary-text);
-        display: grid;
-        place-items: center;
-      }
-
-      a,
-      button {
-        font-family: sans-serif;
-        font-size: 1rem;
-        font-weight: 700;
-        color: var(--color-secondary-text);
-        text-decoration: none;
-        padding: 1.25rem 1rem;
-        width: 100%;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.25rem;
-        background-color: transparent;
-        border: none;
-
-        @media (prefers-reduced-motion: no-preference) {
-          transition: color 280ms ease;
-        }
-
-        @media (hover: hover) {
-          &:hover {
-            color: var(--color-primary-text);
-          }
-        }
-
-        svg {
-          height: 1.5rem;
-          width: 1.5rem;
-        }
-      }
-    }
-
-    .navbar__social-list {
-      display: flex;
-      gap: 1.25rem;
+      padding: 0;
+      max-height: 24rem;
       list-style-type: none;
-      padding-left: 0;
-      margin: 2.5rem auto;
-      height: 100%;
 
-      li,
-      a {
-        color: var(--color-secondary-text);
-        display: flex;
-        align-items: center;
-        height: 100%;
-
-        @media (prefers-reduced-motion: no-preference) {
-          transition: color 280ms ease;
-        }
-
-        @media (hover: hover) {
-          &:hover {
-            color: var(--color-primary-text);
-          }
-        }
+      &-icon {
+        width: 0.625rem;
       }
     }
 
-    .navbar__social-icon {
-      height: 2rem;
-      width: 2rem;
-    }
-
-    @media (min-width: $responsive-small-desktop) {
-      display: none;
-    }
-  }
-
-  &__links {
-    display: none;
-
-    @media (min-width: $responsive-small-desktop) {
+    &-social {
       display: flex;
-      height: 100%;
-
-      &-list {
-        display: flex;
-        gap: 2rem;
-        list-style-type: none;
-        padding-left: 0;
-        margin: 0;
-        height: 100%;
-
-        li,
-        a {
-          font-family: sans-serif;
-          font-size: 1rem;
-          font-weight: 700;
-          color: var(--color-secondary-text);
-          display: flex;
-          align-items: center;
-          text-decoration: none;
-
-          @media (prefers-reduced-motion: no-preference) {
-            transition: color 280ms ease;
-          }
-
-          @media (hover: hover) {
-            &:hover {
-              color: var(--color-primary-text);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  &__social {
-    display: none;
-
-    @media (min-width: $responsive-small-desktop) {
-      display: flex;
-      height: 100%;
-
-      &-list {
-        display: flex;
-        gap: 0.75rem;
-        list-style-type: none;
-        padding-left: 0;
-        margin: 0;
-        height: 100%;
-
-        li,
-        a {
-          color: var(--color-secondary-text);
-          display: flex;
-          align-items: center;
-          height: 100%;
-
-          @media (prefers-reduced-motion: no-preference) {
-            transition: color 280ms ease;
-          }
-
-          @media (hover: hover) {
-            &:hover {
-              color: var(--color-primary-text);
-            }
-          }
-        }
-      }
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0;
+      margin-top: 1rem;
+      margin-bottom: 0;
+      list-style-type: none;
 
       &-icon {
         height: 1.5rem;
         width: 1.5rem;
       }
+    }
+
+    a {
+      text-decoration: none;
+      display: flex;
+      padding: 0.5rem;
+      gap: 0.375rem;
     }
   }
 }
