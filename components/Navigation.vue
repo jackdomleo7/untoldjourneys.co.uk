@@ -405,6 +405,7 @@ $nav-break: $responsive-large-tablet;
       display: flex;
       padding: 0.5rem;
       gap: 0.375rem;
+      color: var(--color-primary-text);
     }
   }
 }
