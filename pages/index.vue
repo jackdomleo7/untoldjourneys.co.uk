@@ -7,11 +7,13 @@
         <Btn class="hero__cta" url="https://www.etsy.com" icon="external" target="_blank">Get my planner</Btn>
       </div>
     </header>
+    <VagabondAd />
   </div>
 </template>
 
 <script lang="ts" setup>
 import Btn from '@/components/Btn.vue';
+import VagabondAd from '@/components/VagabondAd.vue';
 </script>
 
 <style lang="scss" scoped>
