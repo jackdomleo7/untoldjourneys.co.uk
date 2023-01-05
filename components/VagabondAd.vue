@@ -1,5 +1,5 @@
 <template>
-  <section class="vagabond">
+  <section id="vagabond" class="vagabond">
     <div class="vagabond__inner">
       <div class="vagabond__box">
         <h2 class="vagabond__title">Get 10% off any Vagabond Life purchase using our discount code</h2>
