@@ -147,8 +147,8 @@ $nav-break: $responsive-large-tablet;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    transition-property: box-shadow, height;
     transition: 280ms ease;
+    transition-property: box-shadow, height;
     will-change: box-shadow, height;
   }
 
