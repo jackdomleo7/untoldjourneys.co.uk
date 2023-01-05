@@ -1,0 +1,13 @@
+.link,
+a:not([class]) {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 3px;
+  will-change: color;
+
+  &:hover,
+  &:active {
+    color: var(--color-accent);
+  }
+}

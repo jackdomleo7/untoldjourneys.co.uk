@@ -7,6 +7,13 @@
         <Btn class="hero__cta" url="https://www.etsy.com" icon="external" target="_blank">Get my planner</Btn>
       </div>
     </header>
+    <section id="about" class="about">
+      <div class="about__inner">
+        <img class="about__img" src="/images/about.jpg" alt="Jack Domleo & Ella Parsons" height="400" width="400" />
+        <h2 class="about__title">About us</h2>
+        <p class="about__info">We are <a href="https://jackdomleo.dev" target="_blank" rel="nofollow">Jack</a> & Ella, an engaged couple from Nottinghamshire, UK. Ella is also a certified travel agent, so go check out her website. We have a passion for travel and living life to the fullest. Our favourite holiday destination is Florida, US.</p>
+      </div>
+    </section>
     <VagabondAd />
   </div>
 </template>
@@ -56,6 +63,40 @@ import VagabondAd from '@/components/VagabondAd.vue';
 
   &__cta {
     align-self: center;
+  }
+}
+
+.about {
+  background-color: #eee;
+  padding: 3rem;
+
+  &__inner {
+    max-width: 78rem;
+    margin-inline: auto;
+    display: grid;
+    grid-template-areas: 'title' 'img' 'info';
+    place-items: center;
+    gap: 2rem;
+
+    @media (min-width: $responsive-small-tablet) {
+      grid-template-areas: 'img title' 'img info';
+      gap: 6rem;
+    }
+  }
+
+  &__img {
+    grid-area: img;
+    width: 25rem;
+    border-radius: 50%;
+  }
+
+  &__title {
+    grid-area: title;
+    font-size: var(--text-subtitle);
+  }
+
+  &__info {
+    grid-area: info;
   }
 }
 </style>
