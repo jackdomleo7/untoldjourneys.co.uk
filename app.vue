@@ -43,6 +43,11 @@ useHead({
 
   main {
     flex: 1;
+    margin-top: 6rem;
+
+    @media (min-width: $responsive-large-tablet) {
+      margin-top: 9rem;
+    }
   }
 }
 </style>

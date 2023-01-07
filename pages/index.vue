@@ -25,7 +25,6 @@ import VagabondAd from '@/components/VagabondAd.vue';
 
 <style lang="scss" scoped>
 .hero {
-  margin-top: 6rem;
   background-image: url('/images/hero-bg.jpeg');
   background-repeat: no-repeat;
   background-position: center;
@@ -36,7 +35,6 @@ import VagabondAd from '@/components/VagabondAd.vue';
   place-items: center;
 
   @media (min-width: $responsive-large-tablet) {
-    margin-top: 9rem;
     padding: 2rem;
   }
 

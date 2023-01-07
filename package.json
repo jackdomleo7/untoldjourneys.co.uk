@@ -26,6 +26,9 @@
     "npm": "9"
   },
   "dependencies": {
+    "@nuxt/image-edge": "^1.0.0-27840416.dc1ed65",
+    "contentful": "^9.2.15",
+    "dayjs": "^1.11.7",
     "modern-normalize": "^1.1.0",
     "nuxt-icons": "^3.0.0"
   }
