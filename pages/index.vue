@@ -8,7 +8,7 @@
       </div>
     </header>
     <section id="about" class="about">
-      <div class="about__inner">
+      <div class="about__inner container">
         <img class="about__img" src="/images/about.jpg" alt="Jack Domleo & Ella Parsons" height="400" width="400" />
         <h2 class="about__title">About us</h2>
         <p class="about__info">We are <a href="https://jackdomleo.dev" target="_blank" rel="nofollow">Jack</a> & Ella, an engaged couple from Nottinghamshire, UK. Ella is also a certified travel agent, so go check out her website. We have a passion for travel and living life to the fullest. Our favourite holiday destination is Florida, US.</p>
@@ -69,8 +69,6 @@ import VagabondAd from '@/components/VagabondAd.vue';
   padding: 3rem;
 
   &__inner {
-    max-width: 78rem;
-    margin-inline: auto;
     display: grid;
     grid-template-areas: 'title' 'img' 'info';
     place-items: center;

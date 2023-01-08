@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="posts">
+    <ul class="posts container">
       <li v-for="item in blog!.items" :key="item.fields.slug">
         <nuxt-link :to="`/blog/${item.fields.slug}`" class="post">
           <article class="post__article">
@@ -13,12 +13,14 @@
               </ul>
               <h2 class="post__title">{{ item.fields.title }}</h2>
               <p class="post__description">{{ item.fields.description }}</p>
-              <p class="post__date">
-                <span class="sr-only">Publish date:</span>
-                <time :datetime="dayjs(new Date(item.fields.publishDate)).format('YYYY-MM-DD')">
-                  {{ dayjs(new Date(item.fields.publishDate)).format('MMMM D, YYYY') }}
-                </time>
-              </p>
+              <footer>
+                <p class="post__date">
+                  <span class="sr-only">Publish date:</span>
+                  <time :datetime="dayjs(new Date(item.fields.publishDate)).format('YYYY-MM-DD')">
+                    {{ dayjs(new Date(item.fields.publishDate)).format('MMMM D, YYYY') }}
+                  </time>
+                </p>
+              </footer>
             </div>
           </article>
         </nuxt-link>
@@ -32,15 +34,17 @@ import dayjs from 'dayjs'
 import type { ContentfulEntries } from '@/types/CMS/Entries'
 
 const { data: blog } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BlogPage>({ content_type: 'blogPost', limit: 1000, order: '-fields.publishDate', select: 'fields.title,fields.description,fields.image,fields.tags,fields.publishDate,fields.slug' })})
+
+useHead({
+  title: 'Blog'
+})
 </script>
 
 <style lang="scss" scoped>
 .posts {
   list-style-type: none;
   padding: 1rem;
-  margin: 0;
-  max-width: 87.5rem;
-  margin-inline: auto;
+  margin-block: 0;
   display: flex;
   align-items: stretch;
   justify-content: space-evenly;

@@ -12,9 +12,11 @@
     "dev": "nuxi dev --open",
     "generate": "nuxi generate -m",
     "preview": "nuxi preview",
-    "postinstall": "nuxi prepare"
+    "postinstall": "nuxi prepare",
+    "cleanup": "nuxi cleanup && npm i"
   },
   "devDependencies": {
+    "@contentful/rich-text-html-renderer": "^16.0.2",
     "@types/node": "^18.11.18",
     "nuxt": "3.0.0",
     "sass": "^1.57.1",

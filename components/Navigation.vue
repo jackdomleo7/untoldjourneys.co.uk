@@ -1,6 +1,6 @@
 <template>
   <nav class="nav" :class="{ 'nav--sticky': !navIsAtTop || isMobileNavOpen }">
-    <div class="nav__inner">
+    <div class="nav__inner container">
       <div v-if="!isMobile" class="nav__links">
         <ul class="nav__links-list">
           <li v-for="navLink in navLinks" :key="navLink.url">
@@ -174,8 +174,6 @@ $nav-break: $responsive-large-tablet;
     background-color: #fff;
     position: relative;
     z-index: 1;
-    max-width: 90rem;
-    margin-inline: auto;
 
     @media (min-width: $nav-break) {
       padding-inline: 2rem;

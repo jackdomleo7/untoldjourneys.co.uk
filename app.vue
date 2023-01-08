@@ -10,6 +10,13 @@
 <script lang="ts" setup>
 import Navigation from './components/Navigation.vue';
 
+const $route = useRoute()
+let currentUrl = ref(`${window.location.hostname}${$route.path}`)
+
+watch($route, () => {
+  currentUrl.value = `${window.location.hostname}${$route.path}`
+})
+
 useHead({
   htmlAttrs: {
     lang: 'en-GB'
@@ -24,13 +31,16 @@ useHead({
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     { name: 'name', content: 'Untold Journeys' },
-    { name: 'og:locale', content: 'en_GB' },
-    { name: 'og:type', content: 'website' },
+    { property: 'og:locale', content: 'en_GB' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:image:width', content: '1200' },
+    { property: 'og:image:height', content: '630' },
     { name: 'format-detection', content: 'telephone=no' },
     { name: 'color-scheme', content: 'light' }
   ],
   link: [
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    { rel: 'canonical', href: currentUrl }
   ]
 })
 </script>
