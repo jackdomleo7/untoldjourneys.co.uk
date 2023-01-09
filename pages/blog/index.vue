@@ -33,7 +33,7 @@
 import dayjs from 'dayjs'
 import type { ContentfulEntries } from '@/types/CMS/Entries'
 
-const { data: blog } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BlogPage>({ content_type: 'blogPost', limit: 1000, order: '-fields.publishDate', select: 'fields.title,fields.description,fields.image,fields.tags,fields.publishDate,fields.slug' })})
+const { data: blog } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<Omit<ContentfulEntries.BlogPage, 'body'>>({ content_type: 'blogPost', limit: 1000, order: '-fields.publishDate', select: 'fields.title,fields.description,fields.image,fields.tags,fields.publishDate,fields.slug' })})
 
 useHead({
   title: 'Blog'
