@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      BASE_URL: process.env.NUXT_BASE_URL,
       CTF_SPACE_ID: process.env.NUXT_CTF_SPACE_ID,
       CTF_CDA_ACCESS_TOKEN: process.env.NUXT_CTF_CDA_ACCESS_TOKEN
     }
@@ -15,7 +16,7 @@ export default defineNuxtConfig({
     'modern-normalize/modern-normalize.css',
     '@/assets/styles/main.scss'
   ],
-  modules: ['nuxt-icons', '@nuxt/image-edge'],
+  modules: ['nuxt-icons', '@nuxt/image-edge', 'nuxt-simple-sitemap'],
   image: {
     contentful: {},
     screens: {
@@ -30,6 +31,9 @@ export default defineNuxtConfig({
       largedesktop: 2880,
       '4kdesktop': 3840
     }
+  },
+  sitemap: {
+    hostname: process.env.NUXT_BASE_URL
   },
   vite: {
     css: {
