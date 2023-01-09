@@ -1,3 +1,23 @@
+import * as contentful from 'contentful'
+import type { ContentfulEntries } from './types/CMS/Entries'
+
+const contentfulClient = contentful.createClient({
+  space: process.env.NUXT_CTF_SPACE_ID,
+  accessToken: process.env.NUXT_CTF_CDA_ACCESS_TOKEN
+})
+
+async function getBlog(): Promise<string[]> {
+  const routes: string[] = []
+
+  // Blog
+  const blog = await contentfulClient.getEntries<Pick<ContentfulEntries.BlogPage, 'slug'>>({ content_type: 'blogPost', limit: 1000, select: 'fields.slug' })
+  for (const article of blog.items) {
+    routes.push(`/blog/${article.fields.slug}`)
+  }
+
+  return routes
+}
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
@@ -34,6 +54,12 @@ export default defineNuxtConfig({
   },
   sitemap: {
     hostname: process.env.NUXT_BASE_URL
+  },
+  hooks: {
+    async 'nitro:config' (nitroConfig) {
+      if (nitroConfig.dev) { return }
+      nitroConfig.prerender.routes = [...(await getBlog())]
+    }
   },
   vite: {
     css: {
