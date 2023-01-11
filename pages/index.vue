@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="hero">
+    <header id="hero" class="hero">
       <div class="hero__box">
         <h1 class="hero__title">Welcome to Untold Journeys!</h1>
         <p class="hero__intro">We are a couple who are passionate about travelling and writing travel-related articles on our travel blog. We have created handy trip planners to help you plan your next trip!</p>
@@ -15,12 +15,17 @@
       </div>
     </section>
     <VagabondAd />
+    <section id="blog" class="blog container">
+      <h2 class="blog__title">Latest articles</h2>
+      <BlogList :limit="6" />
+    </section>
   </div>
 </template>
 
 <script lang="ts" setup>
 import Btn from '@/components/Btn.vue';
 import VagabondAd from '@/components/VagabondAd.vue';
+import BlogList from '@/components/BlogList.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -93,6 +98,17 @@ import VagabondAd from '@/components/VagabondAd.vue';
 
   &__info {
     grid-area: info;
+  }
+}
+
+.blog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  &__title {
+    font-size: var(--text-subtitle);
   }
 }
 </style>
