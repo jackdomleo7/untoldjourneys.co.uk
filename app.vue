@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <CookieConsent v-if="trackingConsent === false" @close="onClose" />
     <Navigation />
     <main>
       <NuxtLayout />
@@ -8,14 +9,32 @@
 </template>
 
 <script lang="ts" setup>
+import { bootstrap } from 'vue-gtag'
+import cookie from 'cookiejs'
 import Navigation from './components/Navigation.vue';
+import CookieConsent from './components/CookieConsent.vue';
+
+/**
+ * false = cookie not set
+ * 'false' = user has not consented
+ * 'true' = user has consented
+ */
+const trackingConsent = ref<false|'true'|'false'>(cookie.get('analyticsConsented') as false|'true'|'false')
 
 const $route = useRoute()
 let currentUrl = ref(`${window.location.hostname}${$route.path}`)
 
+if (trackingConsent.value === 'true') {
+  bootstrap().then(gtag => {})
+}
+
 watch($route, () => {
   currentUrl.value = `${window.location.hostname}${$route.path}`
 })
+
+function onClose() {
+  trackingConsent.value = cookie.get('analyticsConsented') as false|'true'|'false'
+}
 
 useHead({
   htmlAttrs: {

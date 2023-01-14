@@ -29,7 +29,8 @@ export default defineNuxtConfig({
     public: {
       BASE_URL: process.env.NUXT_BASE_URL,
       CTF_SPACE_ID: process.env.NUXT_CTF_SPACE_ID,
-      CTF_CDA_ACCESS_TOKEN: process.env.NUXT_CTF_CDA_ACCESS_TOKEN
+      CTF_CDA_ACCESS_TOKEN: process.env.NUXT_CTF_CDA_ACCESS_TOKEN,
+      GOOGLE_ANALYTICS_ID: process.env.NUXT_GOOGLE_ANALYTICS_ID
     }
   },
   css: [
