@@ -13,11 +13,13 @@
       </div>
       <div class="nav__logo">
         <nuxt-link to="/">
-          <img
+          <nuxt-img
             src="/images/UntoldJourneys-logo.png"
             alt="Untold Journeys"
             width="352"
             height="134"
+            sizes="4kdesktop:352px"
+            preload
           />
           <span class="sr-only" translate="no">Untold Journeys - Time for adventure</span>
         </nuxt-link>
