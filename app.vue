@@ -5,14 +5,16 @@
     <main>
       <NuxtLayout />
     </main>
+    <SiteFooter />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { bootstrap } from 'vue-gtag'
 import cookie from 'cookiejs'
-import Navigation from './components/Navigation.vue';
 import CookieConsent from './components/CookieConsent.vue';
+import Navigation from './components/Navigation.vue';
+import SiteFooter from './components/SiteFooter.vue';
 
 /**
  * false = cookie not set
