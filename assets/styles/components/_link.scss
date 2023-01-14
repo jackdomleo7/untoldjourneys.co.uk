@@ -1,13 +1,15 @@
 .link,
 a:not([class]) {
-  color: inherit;
+  --link-color: var(--color-accent);
+  color: var(--link-color);
   text-decoration: underline;
-  text-decoration-color: var(--color-accent);
   text-decoration-thickness: 3px;
-  will-change: color;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 
   &:hover,
-  &:active {
-    color: var(--color-accent);
+  &:focus {
+    text-decoration: none;
   }
 }
