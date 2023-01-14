@@ -18,6 +18,18 @@ async function getBlog(): Promise<string[]> {
   return routes
 }
 
+async function getBasicPages(): Promise<string[]> {
+  const routes: string[] = []
+
+  // Blog
+  const basicPages = await contentfulClient.getEntries<Pick<ContentfulEntries.BasicPage, 'slug'>>({ content_type: 'basicPage', limit: 1000, select: 'fields.slug' })
+  for (const page of basicPages.items) {
+    routes.push(`/${page.fields.slug}`)
+  }
+
+  return routes
+}
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
@@ -59,7 +71,7 @@ export default defineNuxtConfig({
   hooks: {
     async 'nitro:config' (nitroConfig) {
       if (nitroConfig.dev) { return }
-      nitroConfig.prerender.routes = [...(await getBlog())]
+      nitroConfig.prerender.routes = [...(await getBasicPages()), ...(await getBlog())]
     }
   },
   vite: {

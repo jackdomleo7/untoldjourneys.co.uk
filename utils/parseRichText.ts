@@ -1,0 +1,16 @@
+import { documentToHtmlString, type Options } from '@contentful/rich-text-html-renderer';
+import type { Node, Document } from '@contentful/rich-text-types';
+import type { EntryFields } from 'contentful'
+
+export function parseRichText(document: EntryFields.RichText | Node | Document, composables: { $img: any }, options?: Options) {
+  return documentToHtmlString(document, {
+    renderNode: {
+      'embedded-asset-block': (node: Node) => `<img src="${composables.$img(node.data.target.fields.file.url, { width: 800 }, { provider: 'contentful' })}" alt="" width="800" height="420" loading="lazy" />`,
+      'table': (node: Node) => `<div class="table"><table>${documentToHtmlString(node)}</table></div>`,
+      ...options?.renderNode
+    },
+    renderMark: {
+      ...options?.renderMark
+    }
+  })
+}

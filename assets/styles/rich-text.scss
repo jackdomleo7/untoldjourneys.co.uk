@@ -1,0 +1,71 @@
+.rich-text {
+  :deep() {
+    h2 {
+      font-size: var(--text-subtitle);
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+    }
+
+    h3 {
+      font-size: var(--text-heading);
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    h4 {
+      font-size: var(--text-large);
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p:empty {
+      display: none;
+    }
+
+    hr {
+      margin-block: 3rem;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+    }
+    
+    .table {
+      overflow-x: auto;
+      margin-block: 2rem;
+
+      table {
+        border: 0;
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+      }
+      
+      th {
+        border-bottom: 2px solid var(--color-primary-text);
+      }
+      
+      tbody {
+        tr:nth-child(even) {
+          background-color: var(--color-foreground-1);
+        }
+      }
+      
+      td,
+      th {
+        padding: 1rem 0.5rem;
+        vertical-align: top;
+        min-width: 14rem;
+      }
+      
+      th {
+        font-weight: 700;
+        text-align: left;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

@@ -60,6 +60,21 @@ function reject() {
 
   &__content {
     font-size: var(--text-body);
+    margin-block: 1rem;
+
+    :deep() {
+      p {
+        margin-block: 0.75rem;
+
+        &:first-of-type {
+          margin-bottom: 0;
+        }
+
+        &:last-of-type {
+          margin-top: 0;
+        }
+      }
+    }
   }
 
   &__btns {

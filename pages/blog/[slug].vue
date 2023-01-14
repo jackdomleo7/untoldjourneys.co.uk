@@ -15,24 +15,17 @@
         {{ dayjs(new Date(article.fields.publishDate)).format('MMMM D, YYYY') }}
       </time>
     </p>
-    <div v-html="documentToHtmlString(article.fields.body, options)" class="article__content" />
+    <div v-html="parseRichText(article.fields.body, { $img })" class="rich-text article__content" />
   </article>
 </template>
 
 <script lang="ts" setup>
 import dayjs from 'dayjs'
-import { documentToHtmlString, type Options } from '@contentful/rich-text-html-renderer';
-import type { Node } from '@contentful/rich-text-types';
+import { parseRichText } from '@/utils/parseRichText'
 import type { ContentfulEntries } from '@/types/CMS/Entries'
 
-const route = useRoute()
 const $img = useImage()
-
-const options: Options = {
-  renderNode: {
-    'embedded-asset-block': (node: Node) => `<img src="${$img(node.data.target.fields.file.url, { width: 800 }, { provider: 'contentful' })}" alt="" width="800" height="420" loading="lazy" />`
-  }
-}
+const route = useRoute()
 
 const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BlogPage>({ content_type: 'blogPost', limit: 1, 'fields.slug': route.params.slug })})
 const article = data.value!.items[0]
@@ -53,6 +46,8 @@ useHead({
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/rich-text';
+
 .article {
   font-size: var(--text-body);
   padding: 1rem;
@@ -85,28 +80,6 @@ useHead({
 
   &__content {
     margin-top: 3rem;
-
-    :deep() {
-      h2 {
-        font-size: var(--text-heading);
-        margin-top: 3rem;
-        margin-bottom: 2rem;
-      }
-
-      h3 {
-        font-size: var(--text-large);
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-      }
-
-      p:empty {
-        display: none;
-      }
-
-      hr {
-        margin-block: 3rem;
-      }
-    }
   }
 }
 
