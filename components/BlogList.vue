@@ -68,6 +68,7 @@ const { data: blog } = await useAsyncData((ctx) => { return ctx!.$contentful.get
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
   text-decoration: none;
   color: inherit;
+  width: 100%;
 
   &__details {
     padding: 1rem;
