@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import dayjs from 'dayjs'
-import { documentToHtmlString, Options } from '@contentful/rich-text-html-renderer';
+import { documentToHtmlString, type Options } from '@contentful/rich-text-html-renderer';
 import type { Node } from '@contentful/rich-text-types';
 import type { ContentfulEntries } from '@/types/CMS/Entries'
 
