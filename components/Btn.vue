@@ -1,7 +1,7 @@
 <template>
-  <component :is="url ? defineNuxtLink({}) : 'button'" class="btn" :to="url" v-bind="$attrs">
+  <component :is="props.url ? defineNuxtLink({}) : 'button'" class="btn" :to="props.url" v-bind="$attrs">
     <slot />
-    <nuxt-icon v-if="icon" :name="icon" class="btn__icon" />
+    <nuxt-icon v-if="props.icon" :name="props.icon" class="btn__icon" />
   </component>
 </template>
 
@@ -30,6 +30,7 @@ const props = defineProps({
   border: none;
   font-size: var(--text-large);
   text-decoration: none;
+  outline-offset: 3px;
 
   &__icon {
     width: 1rem;
