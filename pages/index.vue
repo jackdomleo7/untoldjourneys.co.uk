@@ -34,6 +34,7 @@ import BlogList from '@/components/BlogList.vue';
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  background-attachment: fixed;
   min-height: 60vh;
   padding: 1rem;
   display: grid;
