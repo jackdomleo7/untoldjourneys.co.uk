@@ -1,17 +1,17 @@
 <template>
   <div>
-    <header id="hero" class="hero">
+    <header id="hero" class="hero" :style="{ backgroundImage: `url(${$img(page.fields.heroBackgroundImage.fields.file.url, { width: 1920 }, { provider: 'contentful' })}` }">
       <div class="hero__box">
-        <h1 class="hero__title">Welcome to Untold Journeys!</h1>
-        <p class="hero__intro">We are a couple who are passionate about travelling and writing travel-related articles on our travel blog. We have created handy trip planners to help you plan your next trip!</p>
-        <Btn class="hero__cta" url="https://www.etsy.com" icon="external" target="_blank">Get my planner</Btn>
+        <h1 class="hero__title">{{ page.fields.heroTitle }}</h1>
+        <div class="hero__intro" v-html="parseRichText(page.fields.heroBody, { $img })" />
+        <Btn v-if="page.fields.heroCtaText && page.fields.heroCtaUrl" class="hero__cta" :url="page.fields.heroCtaUrl" icon="external" target="_blank">{{ page.fields.heroCtaText }}</Btn>
       </div>
     </header>
     <section id="about" class="about">
       <div class="about__inner container">
-        <nuxt-img class="about__img" src="/images/about.jpg" alt="Jack Domleo & Ella Parsons" height="400" width="400" sizes="4kdesktop:400px" />
-        <h2 class="about__title">About us</h2>
-        <p class="about__info">We are <a href="https://jackdomleo.dev" target="_blank" rel="nofollow">Jack</a> & Ella, an engaged couple from Nottinghamshire, UK. Ella is also a certified travel agent, so go check out her website. We have a passion for travel and living life to the fullest. Our favourite holiday destination is Florida, US.</p>
+        <nuxt-img class="about__img" :src="page.fields.aboutImage.fields.file.url" :alt="page.fields.aboutImage.fields.description" height="400" width="400" sizes="4kdesktop:400px" provider="contentful" />
+        <h2 class="about__title">{{ page.fields.aboutTitle }}</h2>
+        <p class="about__info" v-html="parseRichText(page.fields.aboutBody, { $img })" />
       </div>
     </section>
     <VagabondAd />
@@ -26,11 +26,17 @@
 import Btn from '@/components/Btn.vue';
 import VagabondAd from '@/components/VagabondAd.vue';
 import BlogList from '@/components/BlogList.vue';
+import { parseRichText } from '@/utils/parseRichText'
+import type { ContentfulEntries } from '@/types/CMS/Entries'
+
+const $img = useImage()
+
+const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.Homepage>({ content_type: 'homepage', limit: 1 })})
+const page = data.value!.items[0]
 </script>
 
 <style lang="scss" scoped>
 .hero {
-  background-image: url('/images/hero-bg.jpeg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

@@ -2,10 +2,10 @@ import { documentToHtmlString, type Options } from '@contentful/rich-text-html-r
 import type { Node, Document } from '@contentful/rich-text-types';
 import type { EntryFields } from 'contentful'
 
-export function parseRichText(document: EntryFields.RichText | Node | Document, composables: { $img: any }, options?: Options) {
+export function parseRichText(document: EntryFields.RichText | Node | Document, composables?: { $img: any }, options?: Options) {
   return documentToHtmlString(document, {
     renderNode: {
-      'embedded-asset-block': (node: Node) => `<img src="${composables.$img(node.data.target.fields.file.url, { width: 768 }, { provider: 'contentful' })}" alt="" width="768" height="403" loading="lazy" />`,
+      'embedded-asset-block': (node: Node) => `<img src="${composables?.$img(node.data.target.fields.file.url, { width: 768 }, { provider: 'contentful' })}" alt="" width="768" height="403" loading="lazy" />`,
       'table': (node: Node) => `<div class="table"><table>${documentToHtmlString(node)}</table></div>`,
       ...options?.renderNode
     },
