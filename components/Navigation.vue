@@ -89,9 +89,7 @@ const isMobileNavOpen = ref(false)
 const navIsAtTop = ref(false)
 
 const navLinks = [
-  { text: 'Blog', url: '/blog' },
-  { text: 'Gallery', url: '/gallery' },
-  { text: 'Shop', url: 'https://jackdomleo.dev' }
+  { text: 'Blog', url: '/blog' }
 ]
 const socialLinks = [
   { icon: 'instagram', text: 'Instagram', url: 'https://www.instagram.com' },
