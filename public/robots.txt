@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+Allow: /
+Sitemap: https://www.untoldjourneys.co.uk/sitemap.xml
