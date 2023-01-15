@@ -57,6 +57,7 @@ useHead({
     { property: 'og:image:width', content: '1200' },
     { property: 'og:image:height', content: '630' },
     { name: 'format-detection', content: 'telephone=no' },
+    { name: 'monetization', content: '$ilp.uphold.com/HQqg9QM4JyEj' },
     { name: 'color-scheme', content: 'light' }
   ],
   link: [
