@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header id="hero" class="hero" :style="{ backgroundImage: `url(${$img(page.fields.heroBackgroundImage.fields.file.url, { width: 1920 }, { provider: 'contentful' })}` }">
+    <header id="hero" class="hero" :style="{ backgroundImage: `url(${$img(page.fields.heroBackgroundImage.fields.file.url, { width: 1920 }, { provider: 'contentful' })})` }">
       <div class="hero__box">
         <h1 class="hero__title">{{ page.fields.heroTitle }}</h1>
         <div class="hero__intro" v-html="parseRichText(page.fields.heroBody, { $img })" />
