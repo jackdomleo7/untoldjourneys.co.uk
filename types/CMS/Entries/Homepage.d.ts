@@ -1,6 +1,7 @@
 import type { Asset, EntryFields } from 'contentful'
 
 export interface Homepage {
+  metaDescription: string;
   heroTitle: string,
   heroBody: EntryFields.RichText,
   heroCtaText?: string,

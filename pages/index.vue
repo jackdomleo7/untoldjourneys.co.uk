@@ -33,6 +33,14 @@ const $img = useImage()
 
 const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.Homepage>({ content_type: 'homepage', limit: 1 })})
 const page = data.value!.items[0]
+
+useHead({
+  meta: [
+    { name: 'description', content: page.fields.metaDescription },
+    { property: 'og:description', content: page.fields.metaDescription },
+    { name: 'twitter:description', content: page.fields.metaDescription }
+  ]
+})
 </script>
 
 <style lang="scss" scoped>

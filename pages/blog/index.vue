@@ -8,7 +8,10 @@
 import BlogList from '@/components/BlogList.vue';
 
 useHead({
-  title: 'Blog'
+  title: 'Blog',
+  meta: [
+    { name: 'twitter:title', content: 'Blog | Untold Journeys' },
+  ]
 })
 </script>
 

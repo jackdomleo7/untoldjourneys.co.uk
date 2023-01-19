@@ -25,22 +25,29 @@ import { parseRichText } from '@/utils/parseRichText'
 import type { ContentfulEntries } from '@/types/CMS/Entries'
 
 const $img = useImage()
-const route = useRoute()
+const $route = useRoute()
+const config = useRuntimeConfig()
 
-const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BlogPage>({ content_type: 'blogPost', limit: 1, 'fields.slug': route.params.slug })})
+const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BlogPage>({ content_type: 'blogPost', limit: 1, 'fields.slug': $route.params.slug })})
 const article = data.value!.items[0]
 
 useHead({
   title: `${article.fields.title} | Blog`,
   meta: [
     { name: 'author', content: 'Jack Domleo, Ella Parsons' },
-    { property: 'article:author', content: 'Jack Domleo, Ella Parsons' },
     { name: 'description', content: article.fields.description },
     { property: 'og:description', content: article.fields.description },
     { property: 'og:image', content: article.fields.image.fields.file.url },
     { property: 'og:image:type', content: article.fields.image.fields.file.contentType },
     { property: 'og:type', content: 'article' },
-    { property: 'article:published_time', content: new Date(article.fields.publishDate).toString() }
+    { property: 'article:author', content: 'Jack Domleo, Ella Parsons' },
+    { property: 'article:published_time', content: new Date(article.fields.publishDate).toString() },
+    { name: 'twitter:title', content: `${article.fields.title} | Blog | Untold Journeys` },
+    { name: 'twitter:description', content: article.fields.description },
+    { name: 'twitter:image', content: article.fields.image.fields.file.url }
+  ],
+  link: [
+    { rel: 'canonical', href: `${config.public.BASE_URL}/blog/${$route.params.slug}` }
   ]
 })
 </script>

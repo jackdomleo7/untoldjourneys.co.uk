@@ -56,6 +56,9 @@ useHead({
     { property: 'og:type', content: 'website' },
     { property: 'og:image:width', content: '1200' },
     { property: 'og:image:height', content: '630' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:site', content: '@Untold__Journey' },
+    { name: 'twitter:title', content: 'Untold Journeys' },
     { name: 'format-detection', content: 'telephone=no' },
     { name: 'monetization', content: '$ilp.uphold.com/HQqg9QM4JyEj' },
     { name: 'color-scheme', content: 'light' }

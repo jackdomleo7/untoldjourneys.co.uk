@@ -26,7 +26,15 @@ if (page.fields.slug === 'privacy-policy') {
 }
 
 useHead({
-  title: `${page.fields.title}`
+  title: `${page.fields.title}`,
+  meta: [
+    { name: 'twitter:title', content: `${page.fields.title} | Untold Journeys` },
+    ...(page.fields.metaDescription ? [
+      { name: 'description', content: page.fields.metaDescription },
+      { property: 'og:description', content: page.fields.metaDescription },
+      { name: 'twitter:description', content: page.fields.metaDescription }
+    ] : [])
+  ]
 })
 </script>
 
