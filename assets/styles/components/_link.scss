@@ -1,5 +1,6 @@
 .link,
-a:not([class]) {
+a:not([class]),
+a[class=""] {
   --link-color: var(--color-accent);
   color: var(--link-color);
   text-decoration: underline;

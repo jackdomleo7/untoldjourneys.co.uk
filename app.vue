@@ -1,6 +1,8 @@
 <template>
   <div class="page">
-    <CookieConsent v-if="trackingConsent === false" @close="onClose" />
+    <ClientOnly>
+      <CookieConsent v-if="trackingConsent === false" @close="onClose" />
+    </ClientOnly>
     <Navigation />
     <main>
       <NuxtLayout />
@@ -20,19 +22,17 @@ import SiteFooter from './components/SiteFooter.vue';
  * false = cookie not set
  * 'false' = user has not consented
  * 'true' = user has consented
+ * 'unknown' = unknown
  */
-const trackingConsent = ref<false|'true'|'false'>(cookie.get('analyticsConsented') as false|'true'|'false')
+const trackingConsent = ref<false|'true'|'false'|'unknown'>('unknown')
 
-const $route = useRoute()
-let currentUrl = ref(`${window.location.hostname}${$route.path}`)
+if (process.client) {
+  trackingConsent.value = cookie.get('analyticsConsented') as false|'true'|'false'
+}
 
 if (trackingConsent.value === 'true') {
   bootstrap().then(gtag => {})
 }
-
-watch($route, () => {
-  currentUrl.value = `${window.location.hostname}${$route.path}`
-})
 
 function onClose() {
   trackingConsent.value = cookie.get('analyticsConsented') as false|'true'|'false'
@@ -61,8 +61,7 @@ useHead({
     { name: 'color-scheme', content: 'light' }
   ],
   link: [
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    { rel: 'canonical', href: currentUrl }
+    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
   ]
 })
 </script>

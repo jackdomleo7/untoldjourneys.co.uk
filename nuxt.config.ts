@@ -32,7 +32,7 @@ async function getBasicPages(): Promise<string[]> {
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   typescript: {
     typeCheck: process.env.NODE_ENV === 'dev',
     strict: true
@@ -71,7 +71,7 @@ export default defineNuxtConfig({
   hooks: {
     async 'nitro:config' (nitroConfig) {
       if (nitroConfig.dev) { return }
-      nitroConfig.prerender.routes = [...(await getBasicPages()), ...(await getBlog())]
+      nitroConfig.prerender!.routes = [...(await getBasicPages()), ...(await getBlog())]
     }
   },
   vite: {

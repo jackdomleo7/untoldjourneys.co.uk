@@ -11,7 +11,7 @@
       <div class="about__inner container">
         <nuxt-img class="about__img" :src="page.fields.aboutImage.fields.file.url" :alt="page.fields.aboutImage.fields.description" height="400" width="400" sizes="4kdesktop:400px" provider="contentful" />
         <h2 class="about__title">{{ page.fields.aboutTitle }}</h2>
-        <p class="about__info" v-html="parseRichText(page.fields.aboutBody, { $img })" />
+        <div class="about__info" v-html="parseRichText(page.fields.aboutBody, { $img })" />
       </div>
     </section>
     <VagabondAd />

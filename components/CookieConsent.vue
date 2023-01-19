@@ -1,10 +1,12 @@
 <template>
   <div class="cookies" role="region">
-    <h2 class="cookies__title">{{ cookieContent.fields.title }}</h2>
-    <div v-html="documentToHtmlString(cookieContent.fields.content)" class="cookies__content" />
+    <h2 class="cookies__title">Cookies & Privacy</h2>
+    <p class="cookies__content">
+      We use analytics to track website usage. Read our <nuxt-link to="/privacy-policy">Privacy Policy</nuxt-link> to find out more.
+    </p>
     <div class="cookies__btns">
-      <button @click="reject()" class="link">{{ cookieContent.fields.rejectButtonText }}</button>
-      <Btn @click="enable()" icon="cookie">{{ cookieContent.fields.acceptButtonText }}</Btn>
+      <button @click="reject()" class="link">Reject</button>
+      <Btn @click="enable()" icon="cookie">Allow</Btn>
     </div>
   </div>
 </template>
@@ -12,14 +14,9 @@
 <script lang="ts" setup>
 import { bootstrap } from 'vue-gtag'
 import cookie from 'cookiejs';
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import Btn from './Btn.vue';
-import type { ContentfulEntries } from '@/types/CMS/Entries'
 
 const $emit = defineEmits(['close'])
-
-const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.CookieConsent>({ content_type: 'cookieConsent', limit: 1 })})
-const cookieContent = data.value!.items[0]
 
 function enable() {
   bootstrap().then(gtag => {
@@ -61,20 +58,6 @@ function reject() {
   &__content {
     font-size: var(--text-body);
     margin-block: 1rem;
-
-    :deep() {
-      p {
-        margin-block: 0.75rem;
-
-        &:first-of-type {
-          margin-bottom: 0;
-        }
-
-        &:last-of-type {
-          margin-top: 0;
-        }
-      }
-    }
   }
 
   &__btns {
