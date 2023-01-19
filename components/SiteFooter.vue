@@ -28,6 +28,8 @@
     <div class="footer__legal">
       <p>
         <nuxt-link to="/privacy-policy" class="link">Privacy Policy</nuxt-link>
+        |
+        <nuxt-link to="/contact" class="link">Contact</nuxt-link>
       </p>
       <p>&copy; Copyright 2023. All rights reserved.</p>
     </div>
