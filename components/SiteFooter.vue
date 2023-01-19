@@ -37,14 +37,11 @@
 </template>
 
 <script lang="ts" setup>
+import { socialLinks } from '@/utils/socialLinks'
+
 const quickLinks = [
   { text: 'Home', url: '/' },
   { text: 'Blog', url: '/blog' }
-]
-const socialLinks = [
-  { icon: 'instagram', text: 'Instagram', url: 'https://www.instagram.com' },
-  { icon: 'facebook', text: 'Facebook', url: 'https://www.facebook.com' },
-  { icon: 'etsy', text: 'Etsy', url: 'https://www.etsy.com' }
 ]
 </script>
 
@@ -116,6 +113,15 @@ const socialLinks = [
       width: 2.5rem;
       aspect-ratio: auto 1 / 1;
       outline-offset: 2px;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: background-color 280ms ease;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: var(--color-foreground-1);
+      }
     }
 
     &-icon {

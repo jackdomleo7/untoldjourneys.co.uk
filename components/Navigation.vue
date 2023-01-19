@@ -81,6 +81,8 @@
 </template>
 
 <script lang="ts" setup>
+import { socialLinks } from '@/utils/socialLinks'
+
 const route = useRoute()
 
 const isMobile = ref(false)
@@ -90,11 +92,6 @@ const navIsAtTop = ref(false)
 
 const navLinks = [
   { text: 'Blog', url: '/blog' }
-]
-const socialLinks = [
-  { icon: 'instagram', text: 'Instagram', url: 'https://www.instagram.com' },
-  { icon: 'facebook', text: 'Facebook', url: 'https://www.facebook.com' },
-  { icon: 'etsy', text: 'Etsy', url: 'https://www.etsy.com' }
 ]
 
 watch(route, () => {
@@ -261,16 +258,16 @@ $nav-break: $responsive-large-tablet;
         color: var(--color-primary-text);
         display: flex;
         align-items: center;
-        padding: 0.25rem;
+        padding: 0.5rem;
+        border-radius: 50%;
 
         @media (prefers-reduced-motion: no-preference) {
-          transition: color 280ms ease;
+          transition: background-color 280ms ease;
         }
 
-        @media (hover: hover) {
-          &:hover {
-            color: var(--color-primary-text);
-          }
+        &:hover,
+        &:active {
+          background-color: var(--color-foreground-1);
         }
       }
     }
