@@ -23,7 +23,7 @@ import Btn from './Btn.vue';
     margin-inline: auto;
     padding: 46vmin 1rem 1rem 1rem;
     text-align: center;
-    background-image: url('https://shoutoutglobal.s3.amazonaws.com/ymuohz9msa.jpg');
+    background-image: url('/images/vagabond-ad.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
