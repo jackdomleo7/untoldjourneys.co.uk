@@ -65,6 +65,7 @@ const { data: blog } = await useAsyncData((ctx) => { return ctx!.$contentful.get
   display: block;
   overflow: hidden;
   background-color: var(--color-background);
+  border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
   text-decoration: none;
   color: inherit;

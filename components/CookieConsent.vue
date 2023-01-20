@@ -40,6 +40,7 @@ function reject() {
   bottom: 0;
   width: 100%;
   background-color: var(--color-background);
+  border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
   padding: 1rem;
 

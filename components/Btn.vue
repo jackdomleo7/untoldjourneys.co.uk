@@ -21,6 +21,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .btn {
   background-color: var(--color-primary-text);
+  border-radius: 0.5rem;
   color: #fff;
   padding: 1rem 1.5rem;
   display: inline-flex;

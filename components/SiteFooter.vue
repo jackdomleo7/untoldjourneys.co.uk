@@ -103,7 +103,7 @@ const quickLinks = [
     a {
       display: grid;
       place-items: center;
-      border-radius: 50%;
+      border-radius: 0.5rem;
       overflow: hidden;
       background-color: var(--color-background);
       border: 1px solid var(--color-primary-text);
@@ -112,7 +112,7 @@ const quickLinks = [
       color: var(--color-primary-text);
       width: 2.5rem;
       aspect-ratio: auto 1 / 1;
-      outline-offset: 2px;
+      outline-offset: 4px;
 
       @media (prefers-reduced-motion: no-preference) {
         transition: background-color 280ms ease;

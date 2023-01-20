@@ -259,7 +259,7 @@ $nav-break: $responsive-large-tablet;
         display: flex;
         align-items: center;
         padding: 0.5rem;
-        border-radius: 50%;
+        border-radius: 0.5rem;
 
         @media (prefers-reduced-motion: no-preference) {
           transition: background-color 280ms ease;
