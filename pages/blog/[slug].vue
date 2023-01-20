@@ -16,6 +16,7 @@
       </time>
     </p>
     <div v-html="parseRichText(article.fields.body, { $img })" class="rich-text article__content" />
+    <div v-html="parseRichText(disclaimer.fields.articleDisclaimer)" class="article__disclaimer" />
   </article>
 </template>
 
@@ -28,8 +29,11 @@ const $img = useImage()
 const $route = useRoute()
 const config = useRuntimeConfig()
 
-const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BlogPage>({ content_type: 'blogPost', limit: 1, 'fields.slug': $route.params.slug })})
-const article = data.value!.items[0]
+const articleEntries = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BlogPage>({ content_type: 'blogPost', limit: 1, 'fields.slug': $route.params.slug })})
+const article = articleEntries.data.value!.items[0]
+
+const blogDetails = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<Pick<ContentfulEntries.BlogDetails, 'articleDisclaimer'>>({ content_type: 'blogDetails', limit: 1, select: 'fields.articleDisclaimer' })})
+const disclaimer = blogDetails.data.value!.items[0]
 
 useHead({
   title: `${article.fields.title} | Blog`,
@@ -96,6 +100,11 @@ useHead({
   }
 
   &__content {
+    margin-top: 3rem;
+  }
+
+  &__disclaimer {
+    font-size: var(--text-small);
     margin-top: 3rem;
   }
 }
