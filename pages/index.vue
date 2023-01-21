@@ -113,6 +113,8 @@ useHead({
 
   &__info {
     grid-area: info;
+    max-width: 42rem;
+    margin-inline: auto;
   }
 }
 
