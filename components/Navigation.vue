@@ -13,12 +13,14 @@
       </div>
       <div class="nav__logo">
         <nuxt-link to="/">
-          <nuxt-img
-            src="/images/UntoldJourneys-logo.png"
-            alt="Untold Journeys"
+          <nuxt-picture
+            :src="props.logo.fields.file!.url"
+            :alt="props.logo.fields.description"
             width="352"
             height="134"
             sizes="4kdesktop:352px"
+            format="webp"
+            provider="contentful"
             preload
           />
           <span class="sr-only" translate="no">Untold Journeys - Time for adventure</span>
@@ -82,6 +84,15 @@
 
 <script lang="ts" setup>
 import { socialLinks } from '@/utils/socialLinks'
+import { type PropType } from 'vue';
+import { type Asset } from 'contentful'
+
+const props = defineProps({
+  logo: {
+    type: Object as PropType<Asset>,
+      required: true
+  }
+})
 
 const route = useRoute()
 

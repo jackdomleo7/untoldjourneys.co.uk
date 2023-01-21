@@ -9,7 +9,7 @@
     </header>
     <section id="about" class="about">
       <div class="about__inner container">
-        <nuxt-img class="about__img" :src="page.fields.aboutImage.fields.file.url" :alt="page.fields.aboutImage.fields.description" height="400" width="400" sizes="4kdesktop:400px" provider="contentful" />
+        <nuxt-picture class="about__img" :src="page.fields.aboutImage.fields.file.url" :alt="page.fields.aboutImage.fields.description" height="400" width="400" sizes="4kdesktop:400px" provider="contentful" format="webp" />
         <h2 class="about__title">{{ page.fields.aboutTitle }}</h2>
         <div class="about__info" v-html="parseRichText(page.fields.aboutBody, { $img })" />
       </div>
@@ -103,7 +103,10 @@ useHead({
   &__img {
     grid-area: img;
     width: 25rem;
-    border-radius: 50%;
+
+    :deep(img) {
+      border-radius: 50%;
+    }
   }
 
   &__title {

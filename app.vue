@@ -3,11 +3,11 @@
     <ClientOnly>
       <CookieConsent v-if="trackingConsent === false" @close="onClose" />
     </ClientOnly>
-    <Navigation />
+    <Navigation :logo="page.fields.logo" />
     <main>
       <NuxtLayout />
     </main>
-    <SiteFooter />
+    <SiteFooter :logo="page.fields.logo" />
   </div>
 </template>
 
@@ -17,6 +17,10 @@ import cookie from 'cookiejs'
 import CookieConsent from './components/CookieConsent.vue';
 import Navigation from './components/Navigation.vue';
 import SiteFooter from './components/SiteFooter.vue';
+import type { ContentfulEntries } from './types/CMS/Entries';
+
+const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<Pick<ContentfulEntries.Homepage, 'logo'>>({ content_type: 'homepage', limit: 1 })})
+const page = data.value!.items[0]
 
 /**
  * false = cookie not set

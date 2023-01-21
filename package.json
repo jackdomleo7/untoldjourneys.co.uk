@@ -6,7 +6,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jackdomleo7/TravelBlog.git"
+    "url": "git+https://github.com/jackdomleo7/untoldjourneys.co.uk.git"
   },
   "scripts": {
     "dev": "nuxi dev --open",

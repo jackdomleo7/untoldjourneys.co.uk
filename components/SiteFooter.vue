@@ -1,14 +1,17 @@
 <template>
   <footer class="footer">
     <nuxt-link to="/" class="footer__logo">
-      <nuxt-img
-        src="/images/UntoldJourneys-logo.png"
-        alt="Untold Journeys"
+      <nuxt-picture
+        :src="props.logo.fields.file!.url"
+        :alt="props.logo.fields.description"
         width="192"
         height="78"
         sizes="4kdesktop:192px"
+        format="webp"
         loading="lazy"
+        provider="contentful"
       />
+      <span class="sr-only" translate="no">Untold Journeys - Time for adventure</span>
     </nuxt-link>
     <ul class="footer__quick-links">
       <li v-for="quickLink in quickLinks" :key="quickLink.url">
@@ -38,6 +41,15 @@
 
 <script lang="ts" setup>
 import { socialLinks } from '@/utils/socialLinks'
+import { type PropType } from 'vue';
+import { type Asset } from 'contentful'
+
+const props = defineProps({
+  logo: {
+    type: Object as PropType<Asset>,
+      required: true
+  }
+})
 
 const quickLinks = [
   { text: 'Home', url: '/' },

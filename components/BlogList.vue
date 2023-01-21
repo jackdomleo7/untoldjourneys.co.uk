@@ -3,7 +3,7 @@
     <li v-for="(item, index) in blog!.items" :key="item.fields.slug">
       <nuxt-link :to="`/blog/${item.fields.slug}`" class="post">
         <article class="post__article">
-          <nuxt-picture class="post__img" provider="contentful" :src="item.fields.image.fields.file.url" :alt="item.fields.image.fields.description" width="424" height="223" sizes="4kdesktop:424px" loading="lazy" :preload="index <= 2" />
+          <nuxt-picture class="post__img" provider="contentful" :src="item.fields.image.fields.file.url" :alt="item.fields.image.fields.description" width="424" height="223" sizes="4kdesktop:424px" loading="lazy" :preload="index <= 2" format="webp" />
           <div class="post__details">
             <ul class="post__tags">
               <li v-for="tag in item.fields.tags" :key="tag" class="tag">
