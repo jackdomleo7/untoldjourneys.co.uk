@@ -11,19 +11,15 @@
 </template>
 
 <script lang="ts" setup>
+import dayjs from 'dayjs';
 import { parseRichText } from '@/utils/parseRichText'
 import type { ContentfulEntries } from '@/types/CMS/Entries'
-import dayjs from 'dayjs';
 
 const $img = useImage()
-const route = useRoute()
+const $route = useRoute()
 
-const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BasicPage>({ content_type: 'basicPage', limit: 1, 'fields.slug': route.params.slug })})
+const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BasicPage>({ content_type: 'basicPage', limit: 1, 'fields.slug': $route.params.slug })})
 const page = data.value!.items[0]
-
-if (page.fields.slug === 'privacy-policy') {
-  const dayjs = await import('dayjs')
-}
 
 useHead({
   title: `${page.fields.title}`,
