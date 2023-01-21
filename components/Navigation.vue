@@ -189,6 +189,10 @@ $nav-break: $responsive-large-tablet;
         will-change: width;
       }
     }
+
+    a {
+      display: block;
+    }
   }
 
   &__links {
