@@ -2,7 +2,7 @@
   <div class="cookies" role="region">
     <h2 class="cookies__title">Cookies & Privacy</h2>
     <p class="cookies__content">
-      We use analytics to track website usage. Read our <nuxt-link to="/privacy-policy">Privacy Policy</nuxt-link> to find out more.
+      We use analytics to track website usage. Read our <nuxt-link to="/privacy-policy" class="link">Privacy Policy</nuxt-link> to find out more.
     </p>
     <div class="cookies__btns">
       <button @click="reject()" class="link">Reject</button>
