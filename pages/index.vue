@@ -102,10 +102,10 @@ useHead({
 
   &__img {
     grid-area: img;
-    width: 25rem;
 
     :deep(img) {
       border-radius: 50%;
+      width: 25rem;
     }
   }
 
