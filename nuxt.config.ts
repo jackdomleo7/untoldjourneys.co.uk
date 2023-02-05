@@ -10,7 +10,7 @@ async function getBlog(): Promise<string[]> {
   const routes: string[] = []
 
   // Blog
-  const blog = await contentfulClient.getEntries<Pick<ContentfulEntries.BlogPage, 'slug'>>({ content_type: 'blogPost', limit: 1000, select: 'fields.slug' })
+  const blog = await contentfulClient.getEntries<Pick<ContentfulEntries.BlogPage, 'slug'>>({ content_type: 'blogPost', limit: 1000, select: ['fields.slug'] })
   for (const article of blog.items) {
     routes.push(`/blog/${article.fields.slug}`)
   }
@@ -22,7 +22,7 @@ async function getBasicPages(): Promise<string[]> {
   const routes: string[] = []
 
   // Blog
-  const basicPages = await contentfulClient.getEntries<Pick<ContentfulEntries.BasicPage, 'slug'>>({ content_type: 'basicPage', limit: 1000, select: 'fields.slug' })
+  const basicPages = await contentfulClient.getEntries<Pick<ContentfulEntries.BasicPage, 'slug'>>({ content_type: 'basicPage', limit: 1000, select: ['fields.slug'] })
   for (const page of basicPages.items) {
     routes.push(`/${page.fields.slug}`)
   }

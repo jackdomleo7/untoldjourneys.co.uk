@@ -1,6 +1,6 @@
 <template>
   <ul class="posts container">
-    <li v-for="(item, index) in blog!.items" :key="item.fields.slug">
+    <li v-for="(item, index) in list" :key="item.fields.slug">
       <nuxt-link :to="`/blog/${item.fields.slug}`" class="post">
         <article class="post__article">
           <nuxt-picture class="post__img" provider="contentful" :src="item.fields.image.fields.file.url" :alt="item.fields.image.fields.description" width="424" height="223" sizes="4kdesktop:424px" loading="lazy" :preload="index <= 2" format="webp" />
@@ -34,14 +34,19 @@ import type { ContentfulEntries } from '@/types/CMS/Entries'
 const props = defineProps({
   limit: {
     type: Number,
-    required: true,
+    default: undefined,
     validator(value: number) {
       return value >= 0 && value <= 1000
     }
   }
 })
 
-const { data: blog } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<Omit<ContentfulEntries.BlogPage, 'body'>>({ content_type: 'blogPost', limit: props.limit, order: '-fields.publishDate', select: 'fields.title,fields.description,fields.image,fields.tags,fields.publishDate,fields.slug' })})
+const { data: blog } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<Omit<ContentfulEntries.BlogPage, 'body'>>({ content_type: 'blogPost', limit: 1000, order: '-fields.publishDate', select: ['fields.title', 'fields.description', 'fields.image', 'fields.tags', 'fields.publishDate', 'fields.slug'] })})
+
+let list = blog.value!.items
+if (props.limit) {
+  list = list.slice(0, props.limit)
+}
 </script>
 
 <style lang="scss" scoped>

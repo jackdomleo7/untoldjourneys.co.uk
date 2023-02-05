@@ -13,7 +13,7 @@ import BlogList from '@/components/BlogList.vue';
 import { parseRichText } from '@/utils/parseRichText'
 import type { ContentfulEntries } from '@/types/CMS/Entries';
 
-const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<Pick<ContentfulEntries.BlogDetails, 'hubIntro'|'hubTitle'>>({ content_type: 'blogDetails', limit: 1, select: 'fields.hubTitle,fields.hubIntro' })})
+const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<Pick<ContentfulEntries.BlogDetails, 'hubIntro'|'hubTitle'>>({ content_type: 'blogDetails', limit: 1, select: ['fields.hubTitle', 'fields.hubIntro'] })})
 const page = data.value!.items[0]
 
 useHead({
