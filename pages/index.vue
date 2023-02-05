@@ -38,7 +38,7 @@ useHead({
   meta: [
     { name: 'description', content: page.fields.metaDescription },
     { property: 'og:description', content: page.fields.metaDescription },
-    { name: 'twitter:description', content: page.fields.metaDescription }
+    { property: 'twitter:description', content: page.fields.metaDescription }
   ]
 })
 </script>

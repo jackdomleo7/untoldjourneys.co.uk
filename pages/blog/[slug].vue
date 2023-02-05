@@ -47,9 +47,9 @@ useHead({
     { property: 'article:author', content: 'Jack Domleo, Ella Parsons' },
     { property: 'article:published_time', content: new Date(article.fields.publishDate).toString() },
     { property: 'article:tags', content: article.fields.tags.join(', ') },
-    { name: 'twitter:title', content: `${article.fields.title} | Blog | Untold Journeys` },
-    { name: 'twitter:description', content: article.fields.description },
-    { name: 'twitter:image', content: article.fields.image.fields.file.url }
+    { property: 'twitter:title', content: `${article.fields.title} | Blog | Untold Journeys` },
+    { property: 'twitter:description', content: article.fields.description },
+    { property: 'twitter:image', content: article.fields.image.fields.file.url }
   ],
   link: [
     { rel: 'canonical', href: `${config.public.BASE_URL}/blog/${$route.params.slug}` }

@@ -19,7 +19,7 @@ const page = data.value!.items[0]
 useHead({
   title: 'Blog',
   meta: [
-    { name: 'twitter:title', content: 'Blog | Untold Journeys' },
+    { property: 'twitter:title', content: 'Blog | Untold Journeys' },
   ]
 })
 </script>
