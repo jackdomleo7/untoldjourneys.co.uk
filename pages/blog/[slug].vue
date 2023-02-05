@@ -5,10 +5,12 @@
     </header>
     <nuxt-picture class="article__img" provider="contentful" :src="article.fields.image.fields.file.url" :alt="article.fields.image.fields.description" width="768" height="403" sizes="4kdesktop:768px" format="webp" preload />
     <ul class="article__tags">
+      <li role="presentation"><strong>Tags:</strong></li>
       <li v-for="tag in article.fields.tags" :key="tag" class="tag">
         {{ tag }}
       </li>
     </ul>
+    <p><strong>Read time:</strong> {{ readTime }} min{{ readTime !== 1 ? 's' : '' }}</p>
     <p class="article__date">
       <strong>Posted: </strong>
       <time :datetime="dayjs(new Date(article.fields.publishDate)).format('YYYY-MM-DD')">
@@ -22,6 +24,8 @@
 
 <script lang="ts" setup>
 import dayjs from 'dayjs'
+import readingTime from 'reading-time'
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
 import { parseRichText } from '@/utils/parseRichText'
 import type { ContentfulEntries } from '@/types/CMS/Entries'
 
@@ -31,6 +35,8 @@ const config = useRuntimeConfig()
 
 const articleEntries = await useAsyncData(`article-${$route.params.slug}`, (ctx) => { return ctx!.$contentful.getEntries<ContentfulEntries.BlogPage>({ content_type: 'blogPost', limit: 1, 'fields.slug': $route.params.slug })})
 const article = articleEntries.data.value!.items[0]
+
+const readTime = Math.ceil(readingTime(documentToPlainTextString(article.fields.body)).minutes)
 
 const blogDetails = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<Pick<ContentfulEntries.BlogDetails, 'articleDisclaimer'>>({ content_type: 'blogDetails', limit: 1, select: ['fields.articleDisclaimer'] })})
 const disclaimer = blogDetails.data.value!.items[0]
