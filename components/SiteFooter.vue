@@ -115,7 +115,7 @@ const quickLinks = [
     a {
       display: grid;
       place-items: center;
-      border-radius: 0.5rem;
+      border-radius: var(--border-radius-standard);
       overflow: hidden;
       background-color: var(--color-background);
       border: 1px solid var(--color-primary-text);

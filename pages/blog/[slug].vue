@@ -80,7 +80,7 @@ useHead({
     display: block;
 
     :deep(img) {
-      border-radius: 0.5rem;
+      border-radius: var(--border-radius-standard);
     }
   }
 

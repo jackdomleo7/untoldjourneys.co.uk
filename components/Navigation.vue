@@ -274,7 +274,7 @@ $nav-break: $responsive-large-tablet;
         display: flex;
         align-items: center;
         padding: 0.5rem;
-        border-radius: 0.5rem;
+        border-radius: var(--border-radius-standard);
 
         @media (prefers-reduced-motion: no-preference) {
           transition: background-color 280ms ease;
@@ -318,7 +318,7 @@ $nav-break: $responsive-large-tablet;
         height: 0.125rem;
         width: 100%;
         background-color: var(--color-primary-text);
-        border-radius: 0.5rem;
+        border-radius: var(--border-radius-standard);
         opacity: 1;
         left: 0;
         transform: rotate(0deg);
