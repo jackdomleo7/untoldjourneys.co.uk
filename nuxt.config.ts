@@ -1,6 +1,5 @@
 import * as contentful from 'contentful'
 import type { ContentfulEntries } from './types/CMS/Entries'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 const contentfulClient = contentful.createClient({
   space: process.env.NUXT_CTF_SPACE_ID,
@@ -67,7 +66,7 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    hostname: process.env.NUXT_BASE_URL
+    siteUrl: process.env.NUXT_BASE_URL
   },
   hooks: {
     async 'nitro:config' (nitroConfig) {
@@ -76,9 +75,6 @@ export default defineNuxtConfig({
     }
   },
   vite: {
-    plugins: [nodePolyfills({
-      protocolImports: true
-    })],
     css: {
       devSourcemap: true,
       preprocessorOptions: {
