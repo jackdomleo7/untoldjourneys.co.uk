@@ -1,8 +1,5 @@
 <template>
   <div class="page">
-    <ClientOnly>
-      <CookieConsent v-if="trackingConsent === false" @close="onClose" />
-    </ClientOnly>
     <Navigation :logo="page.fields.logo" />
     <main>
       <NuxtLayout />
@@ -12,35 +9,12 @@
 </template>
 
 <script lang="ts" setup>
-import { bootstrap } from 'vue-gtag'
-import cookie from 'cookiejs'
-import CookieConsent from './components/CookieConsent.vue';
 import Navigation from './components/Navigation.vue';
 import SiteFooter from './components/SiteFooter.vue';
 import type { ContentfulEntries } from './types/CMS/Entries';
 
 const { data } = await useAsyncData((ctx) => { return ctx!.$contentful.getEntries<Pick<ContentfulEntries.Homepage, 'logo'>>({ content_type: 'homepage', limit: 1 })})
 const page = data.value!.items[0]
-
-/**
- * false = cookie not set
- * 'false' = user has not consented
- * 'true' = user has consented
- * 'unknown' = unknown
- */
-const trackingConsent = ref<false|'true'|'false'|'unknown'>('unknown')
-
-if (process.client) {
-  trackingConsent.value = cookie.get('analyticsConsented') as false|'true'|'false'
-}
-
-if (trackingConsent.value === 'true') {
-  bootstrap().then(gtag => {})
-}
-
-function onClose() {
-  trackingConsent.value = cookie.get('analyticsConsented') as false|'true'|'false'
-}
 
 useHead({
   htmlAttrs: {
